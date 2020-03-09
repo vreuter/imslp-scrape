@@ -18,7 +18,7 @@ def parse_html(html):
 #______________________________________________________________________________
 def get_json(parsed_html):
     rmtitle = ' - IMSLP/Petrucci Music Library: Free Public Domain Sheet Music'
-    title = parsedhtml.cssselect('title')[0].text_content().replace(rmtitle, '').encode('utf-8')
+    title = parsed_html.cssselect('title')[0].text_content().replace(rmtitle, '').encode('utf-8')
     id = base64.b64encode(title)
     query_url = ('http://imslp.org/imslpscripts/API.ISCR.php?'
                  'retformat=json/'
@@ -50,7 +50,7 @@ def get_date(jstor):
 #______________________________________________________________________________
 def mk_meta_dict(parsed_html, file):
     src = "http://imslp.org/index.php?oldid=%s" % file.replace('_scores.html','')
-    jstor = get_json(parsedhtml)[0]
+    jstor = get_json(parsed_html)[0]
     date = get_date(jstor)
     try:
         subjects = jstor['intvals']['rawtagcats'].replace('|',';')
