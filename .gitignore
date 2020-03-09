@@ -1,3 +1,4 @@
 people
 *.log
 nohup.out
+.idea/
