@@ -1,3 +1,4 @@
+#!/bin/bash
 # This script crawls through http://imslp.org/wiki/Category:People
 # and returns each resulting page. 
 #

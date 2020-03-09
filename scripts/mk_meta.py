@@ -1,4 +1,4 @@
-#!/home/jake/.virtualenvs/default/bin/python
+#!/usr/bin/env python
 import os
 import urllib2
 import lxml.html
@@ -11,11 +11,10 @@ ROOT_DIR = os.path.join(os.getcwd(), 'people')
 mkdir = lambda x: os.makedirs(x) if not os.path.exists(x) else None
 
 
-#______________________________________________________________________________
 def parse_html(html):
     return lxml.html.fromstring(open(html).read())
 
-#______________________________________________________________________________
+
 def get_json(parsed_html):
     rmtitle = ' - IMSLP/Petrucci Music Library: Free Public Domain Sheet Music'
     title = parsed_html.cssselect('title')[0].text_content().replace(rmtitle, '').encode('utf-8')
@@ -27,12 +26,12 @@ def get_json(parsed_html):
                  'id=%s' % id)
     return json.loads(urllib2.urlopen(query_url).read())
 
-#______________________________________________________________________________
+
 def get_pdf_names(parsed_html):
     return [x[2].split('/')[-1] for x in parsed_html.iterlinks() if 'pdf' in
             x[2] and 'images' in x[2]]
 
-#______________________________________________________________________________
+
 def get_date(jstor):
     bstor = jstor['extvals']
     try:
@@ -47,7 +46,7 @@ def get_date(jstor):
     except KeyError:
         return None
 
-#______________________________________________________________________________
+
 def mk_meta_dict(parsed_html, file):
     src = "http://imslp.org/index.php?oldid=%s" % file.replace('_scores.html','')
     jstor = get_json(parsed_html)[0]
@@ -77,7 +76,7 @@ def mk_meta_dict(parsed_html, file):
                  }
     return {k: v for k,v in meta_dict.iteritems() if v}
 
-#______________________________________________________________________________
+
 for dir in os.listdir('people'):
     ITEM_DIR = os.path.join(ROOT_DIR, dir)
     os.chdir(ITEM_DIR)
@@ -92,7 +91,6 @@ for dir in os.listdir('people'):
             os.chdir(final_item_dir)
 
             # LOGGING
-            #__________________________________________________________________
             if not meta_dict.get('date'):
                 print "WARNING :: NO DATE\t%s\t%s" % (identifier, ITEM_DIR)
             if not meta_dict.get('title'):

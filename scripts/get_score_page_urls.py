@@ -1,4 +1,4 @@
-#!/home/jake/.virtualenvs/default/bin/python
+#!/usr/bin/env python
 import os
 import urllib2
 import lxml.html

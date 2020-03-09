@@ -1,3 +1,4 @@
+#!/bin/bash
 # Create a directory for each person page and download it's HTML into said directory.
 # Input: people_page_urls.txt, a list of URLs to each person page.
 # Output: people/{ID}/{ID}.html + tab-delimited 2 column text file (id, url).
