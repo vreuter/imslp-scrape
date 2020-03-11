@@ -1,6 +1,5 @@
 #!/usr/bin/env python
 import os
-import urllib2
 import lxml.html
 import re
 
@@ -8,12 +7,14 @@ import re
 def parse_html(html):
     return lxml.html.fromstring(open(html).read())
 
+
 def get_item_links(parsed_html):
     try:
         scores = parsed_html.get_element_by_id('mw-pages').iterlinks()
         return [x[2] for x in scores]
     except KeyError:
         return None
+
 
 for directory in os.listdir('people'):
     id_pattern = re.compile(r'oldid=\d{5,7}')
@@ -38,5 +39,5 @@ for directory in os.listdir('people'):
                 with open(score_id_map, "a") as ff:
                     ff.write(id + '\t' + url + '\n')
     except:
-        print 'ERROR :: %s' % directory
+        print('ERROR :: %s' % directory)
         continue
